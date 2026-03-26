@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emotion Music Player</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    color: white;
+    transition: 0.5s;
+    background-size: 300% 300%;
+    animation: gradientMove 8s ease infinite;
+}
+
+/* 🌈 GRADIENT MOODS */
+
+.happy {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+}
+
+.sad {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af, #6dd5ed);
+}
+
+.angry {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b, #ff0000);
+}
+
+.relaxed {
+    background: linear-gradient(135deg, #1e1e2f, #2b5876, #4e4376);
+}
+
+.love {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffb6c1);
+}
+
+.sleep {
+    background: linear-gradient(135deg, #141e30, #243b55, #2c5364);
+}
+
+.excited {
+    background: linear-gradient(135deg, #f7971e, #ffd200, #ff8c00);
+}
+
+.focus {
+    background: linear-gradient(135deg, #11998e, #38ef7d, #00c9ff);
+}
+
+.chill {
+    background: linear-gradient(135deg, #00c6ff, #0072ff, #6a11cb);
+}
+
+.workout {
+    background: linear-gradient(135deg, #000000, #434343, #ff512f);
+}
+
+/* Animation */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Buttons */
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    width: 300px;
+    background: rgba(255,255,255,0.15);
+    padding: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+</style>
+</head>
+
+<body class="relaxed">
+
+<h1>🎧 Emotion Music Player</h1>
+
+<div>
+    <button onclick="setMood('happy')">😊</button>
+    <button onclick="setMood('sad')">😢</button>
+    <button onclick="setMood('angry')">😡</button>
+    <button onclick="setMood('relaxed')">😌</button>
+
+    <br>
+
+    <button onclick="setMood('love')">😍</button>
+    <button onclick="setMood('sleep')">😴</button>
+    <button onclick="setMood('excited')">🤩</button>
+    <button onclick="setMood('focus')">📚</button>
+    <button onclick="setMood('chill')">😎</button>
+    <button onclick="setMood('workout')">💪</button>
+</div>
+
+<br>
+
+<button onclick="loadMusic()">▶ Play Music</button>
+
+<p id="text">Select your mood</p>
+
+<div class="cards" id="musicContainer"></div>
+
+<script>
+let currentMood = "relaxed";
+
+function setMood(mood) {
+    currentMood = mood;
+    document.body.className = mood;
+
+    const messages = {
+        happy: "😊 Enjoy your happy vibes!",
+        sad: "😢 Music will heal you.",
+        angry: "😡 Calm down with music.",
+        relaxed: "😌 Stay relaxed.",
+
+        love: "😍 Feel the love!",
+        sleep: "😴 Time to rest.",
+        excited: "🤩 Let's go!",
+        focus: "📚 Stay focused.",
+        chill: "😎 Just chill.",
+        workout: "💪 Get pumped!"
+    };
+
+    document.getElementById("text").innerText = messages[mood];
+}
+
+function loadMusic() {
+    fetch("/get_music?mood=" + currentMood)
+    .then(res => res.json())
+    .then(data => {
+        const container = document.getElementById("musicContainer");
+        container.innerHTML = "";
+
+        data.forEach(song => {
+            let url = "";
+
+            if (song.type === "video") {
+                url = `https://www.youtube.com/embed/${song.id}`;
+            } else {
+                url = `https://www.youtube.com/embed/videoseries?list=${song.id}`;
+            }
+
+            container.innerHTML += `
+                <div class="card">
+                    <iframe width="100%" height="200" src="${url}" allowfullscreen></iframe>
+                    <p>${song.title}</p>
+                </div>
+            `;
+        });
+    })
+    .catch(err => {
+        alert("Error loading music");
+        console.log(err);
+    });
+}
+</script>
+
+</body>
+</html>
