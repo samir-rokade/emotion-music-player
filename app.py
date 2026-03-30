@@ -1,108 +1,93 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, jsonify, request, render_template
 import requests
 
 app = Flask(__name__)
 
-# 🔑 PUT YOUR YOUTUBE API KEY HERE
+# 🔑 PASTE YOUR API KEY HERE
 API_KEY = "AIzaSyD3FGvLYs3Fzs7yz4vRhjrNMat7m-oT_cg"
 
 
-# 🎯 Mood → search queries
-def get_queries(mood):
-    queries = {
-        "happy": ["happy songs playlist", "party music mix"],
-        "sad": ["sad songs playlist", "emotional songs"],
-        "angry": ["angry rock music", "intense workout music"],
-        "relaxed": ["lofi chill beats", "relaxing music playlist"],
+# 🔍 SEARCH MUSIC (REAL RESULTS)
+@app.route("/search_music")
+def search_music():
+    query = request.args.get("q")
 
-        # 🔥 EXTRA MOODS
-        "love": ["romantic songs playlist", "love songs"],
-        "sleep": ["sleep music", "deep sleep relaxing music"],
-        "excited": ["hype songs", "festival music"],
-        "focus": ["study music", "focus concentration music"],
-        "chill": ["chill vibes playlist", "lofi chill music"],
-        "workout": ["gym workout music", "motivation workout songs"]
-    }
-
-    return queries.get(mood, ["relaxing music"])
-
-
-# 🔍 Fetch from YouTube API
-def fetch_youtube(query):
     url = "https://www.googleapis.com/youtube/v3/search"
 
     params = {
         "part": "snippet",
         "q": query,
         "key": API_KEY,
-        "maxResults": 10,
-        "type": "video,playlist"
+        "maxResults": 6,
+        "type": "video"
     }
 
-    try:
-        response = requests.get(url, params=params)
-        data = response.json()
+    response = requests.get(url, params=params)
+    data = response.json()
 
-        if "items" not in data:
-            print("API ERROR:", data)
-            return []
+    results = []
 
-        results = []
+    for item in data.get("items", []):
+        video_id = item["id"]["videoId"]
+        title = item["snippet"]["title"]
 
-        for item in data["items"]:
-            kind = item["id"]["kind"]
+        results.append({
+            "id": video_id,
+            "title": title
+        })
 
-            if kind == "youtube#video":
-                results.append({
-                    "type": "video",
-                    "id": item["id"]["videoId"],
-                    "title": item["snippet"]["title"]
-                })
-
-            elif kind == "youtube#playlist":
-                results.append({
-                    "type": "playlist",
-                    "id": item["id"]["playlistId"],
-                    "title": item["snippet"]["title"]
-                })
-
-        return results
-
-    except Exception as e:
-        print("ERROR:", e)
-        return []
+    return jsonify(results)
 
 
-# 🏠 Home
+# 🎵 MOOD MUSIC (SEARCH BASED)
+@app.route("/get_music")
+def get_music():
+    mood = request.args.get("mood")
+
+    mood_query = {
+        "happy": "happy songs",
+        "sad": "sad songs",
+        "relaxed": "lofi chill",
+        "angry": "rock music",
+        "love": "romantic songs",
+        "study": "study music",
+        "chill": "chill music",
+        "workout": "workout music"
+    }
+
+    query = mood_query.get(mood, "music")
+
+    url = "https://www.googleapis.com/youtube/v3/search"
+
+    params = {
+        "part": "snippet",
+        "q": query,
+        "key": API_KEY,
+        "maxResults": 6,
+        "type": "video"
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    results = []
+
+    for item in data.get("items", []):
+        video_id = item["id"]["videoId"]
+        title = item["snippet"]["title"]
+
+        results.append({
+            "id": video_id,
+            "title": title
+        })
+
+    return jsonify(results)
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# 🎵 API route
-@app.route("/get_music")
-def get_music():
-    mood = request.args.get("mood", "relaxed")
-
-    queries = get_queries(mood)
-
-    all_results = []
-
-    for q in queries:
-        all_results.extend(fetch_youtube(q))
-
-    # fallback if API fails
-    if not all_results:
-        return jsonify([
-            {"type": "video", "id": "ZbZSe6N_BXs", "title": "Happy Song"},
-            {"type": "video", "id": "OPf0YbXqDm0", "title": "Uptown Funk"}
-        ])
-
-    return jsonify(all_results)
-
-
 if __name__ == "__main__":
-    import os
-
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
