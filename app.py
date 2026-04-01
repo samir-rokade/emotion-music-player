@@ -20,7 +20,7 @@ def search_music():
             "part": "snippet",
             "q": query,
             "key": API_KEY,
-            "maxResults": 6,
+            "maxResults": 20,
             "type": "video"
         }
 
@@ -88,7 +88,7 @@ def get_music():
             "part": "snippet",
             "q": query,
             "key": API_KEY,
-            "maxResults": 6,
+            "maxResults": 20,
             "type": "video"
         }
 
