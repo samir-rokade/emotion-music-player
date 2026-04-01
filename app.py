@@ -3,43 +3,66 @@ import requests
 
 app = Flask(__name__)
 
-# 🔑 PASTE YOUR API KEY HERE
 API_KEY = "AIzaSyD3FGvLYs3Fzs7yz4vRhjrNMat7m-oT_cg"
 
 
-# 🔍 SEARCH MUSIC (REAL RESULTS)
+# 🔍 SEARCH MUSIC
 @app.route("/search_music")
 def search_music():
     query = request.args.get("q")
 
-    url = "https://www.googleapis.com/youtube/v3/search"
+    if not query:
+        return jsonify([])
 
-    params = {
-        "part": "snippet",
-        "q": query,
-        "key": API_KEY,
-        "maxResults": 6,
-        "type": "video"
-    }
+    try:
+        url = "https://www.googleapis.com/youtube/v3/search"
+        params = {
+            "part": "snippet",
+            "q": query,
+            "key": API_KEY,
+            "maxResults": 6,
+            "type": "video"
+        }
 
-    response = requests.get(url, params=params)
-    data = response.json()
+        response = requests.get(url, params=params)
+        data = response.json()
 
-    results = []
+        # 🔴 PRINT FULL RESPONSE (VERY IMPORTANT)
+        print("YOUTUBE RESPONSE:", data)
 
-    for item in data.get("items", []):
-        video_id = item["id"]["videoId"]
-        title = item["snippet"]["title"]
+        # ❌ API ERROR
+        if "error" in data:
+            print("API ERROR:", data["error"])
+            return jsonify([])
 
-        results.append({
-            "id": video_id,
-            "title": title
-        })
+        results = []
 
-    return jsonify(results)
+        for item in data.get("items", []):
+            if item["id"].get("videoId"):
+                results.append({
+                    "id": item["id"]["videoId"],
+                    "title": item["snippet"]["title"]
+                })
+
+        # ⚠️ IF EMPTY → RETURN FALLBACK SONGS
+        if not results:
+            return jsonify([
+                {"id": "5qap5aO4i9A", "title": "Lofi Chill"},
+                {"id": "RgKAFK5djSk", "title": "See You Again"},
+                {"id": "JGwWNGJdvx8", "title": "Shape of You"}
+            ])
+
+        return jsonify(results)
+
+    except Exception as e:
+        print("ERROR:", e)
+        return jsonify([
+            {"id": "5qap5aO4i9A", "title": "Lofi Chill"},
+            {"id": "RgKAFK5djSk", "title": "See You Again"}
+        ])
 
 
-# 🎵 MOOD MUSIC (SEARCH BASED)
+# 🎵 MOOD MUSIC
 @app.route("/get_music")
 def get_music():
     mood = request.args.get("mood")
@@ -50,38 +73,56 @@ def get_music():
         "relaxed": "lofi chill",
         "angry": "rock music",
         "love": "romantic songs",
-        "study": "study music",
+        "sleep": "sleep music",
+        "excited": "party songs",
+        "focus": "study music",
         "chill": "chill music",
         "workout": "workout music"
     }
 
     query = mood_query.get(mood, "music")
 
-    url = "https://www.googleapis.com/youtube/v3/search"
+    try:
+        url = "https://www.googleapis.com/youtube/v3/search"
+        params = {
+            "part": "snippet",
+            "q": query,
+            "key": API_KEY,
+            "maxResults": 6,
+            "type": "video"
+        }
 
-    params = {
-        "part": "snippet",
-        "q": query,
-        "key": API_KEY,
-        "maxResults": 6,
-        "type": "video"
-    }
+        response = requests.get(url, params=params)
+        data = response.json()
 
-    response = requests.get(url, params=params)
-    data = response.json()
+        print("MOOD RESPONSE:", data)
 
-    results = []
+        if "error" in data:
+            print("API ERROR:", data["error"])
+            return jsonify([])
 
-    for item in data.get("items", []):
-        video_id = item["id"]["videoId"]
-        title = item["snippet"]["title"]
+        results = []
 
-        results.append({
-            "id": video_id,
-            "title": title
-        })
+        for item in data.get("items", []):
+            if item["id"].get("videoId"):
+                results.append({
+                    "id": item["id"]["videoId"],
+                    "title": item["snippet"]["title"]
+                })
 
-    return jsonify(results)
+        if not results:
+            return jsonify([
+                {"id": "5qap5aO4i9A", "title": "Lofi Chill"},
+                {"id": "hHW1oY26kxQ", "title": "Relax Music"}
+            ])
+
+        return jsonify(results)
+
+    except Exception as e:
+        print("ERROR:", e)
+        return jsonify([
+            {"id": "5qap5aO4i9A", "title": "Fallback Music"}
+        ])
 
 
 @app.route("/")
