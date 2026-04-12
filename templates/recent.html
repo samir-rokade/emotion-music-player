@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Recently Played - Emotion Music Player</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<div class="profile-header">
+    <h2 style="color: white;">🎵 Recently Played</h2>
+    <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
+</div>
+<div class="recent-container">
+    <h3>Your Recently Played Songs</h3>
+    {% if songs %}
+    <div class="song-grid">
+        {% for song in songs %}
+        <div class="song-card">
+            <iframe src="https://www.youtube.com/embed/{{ song.id }}" frameborder="0" allowfullscreen style="width:100%; height:150px; border-radius:10px;"></iframe>
+            <div class="song-title">{{ song.title[:50] }}</div>
+            <div class="mood-badge">🎭 {{ song.mood }}</div>
+            <div class="time" style="font-size:11px; color:#999; margin-top:5px;">{{ song.played_at[:16] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">No recently played songs. Start listening to music!</div>
+    {% endif %}
+</div>
+</body>
+</html>
