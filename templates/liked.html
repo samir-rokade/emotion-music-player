@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Liked Songs - Emotion Music Player</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<div class="profile-header">
+    <h2 style="color: white;">❤️ Liked Songs</h2>
+    <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
+</div>
+<div class="liked-container">
+    <h3>Your Favorite Songs</h3>
+    {% if songs %}
+    <div class="song-grid">
+        {% for song in songs %}
+        <div class="song-card">
+            <iframe src="https://www.youtube.com/embed/{{ song.id }}" frameborder="0" allowfullscreen style="width:100%; height:150px; border-radius:10px;"></iframe>
+            <div class="song-title">{{ song.title[:50] }}</div>
+            <div class="liked-date" style="font-size:11px; color:#999; margin-top:5px;">❤️ Liked on {{ song.liked_at[:16] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">No liked songs yet. Click the ❤️ button on songs you love!</div>
+    {% endif %}
+</div>
+</body>
+</html>
