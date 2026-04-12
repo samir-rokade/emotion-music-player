@@ -3,10 +3,137 @@
 <head>
 <title>Liked Songs - Emotion Music Player</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh;
+    }
+    
+    body::before, body::after, .music-pattern, .floating-emojis {
+        display: none !important;
+    }
+    
+    .profile-header {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .profile-header h2 {
+        color: white !important;
+        margin: 0;
+    }
+    
+    .back-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        padding: 10px 24px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .back-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }
+    
+    .liked-container {
+        max-width: 1000px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .liked-container h3 {
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ff6b6b;
+        display: inline-block;
+    }
+    
+    .song-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 25px;
+    }
+    
+    .song-card {
+        background: white;
+        border-radius: 15px;
+        padding: 15px;
+        text-align: center;
+        transition: all 0.3s;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+        position: relative;
+    }
+    
+    .song-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .song-card::before {
+        content: "❤️";
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        opacity: 0.5;
+    }
+    
+    .song-card iframe {
+        width: 100%;
+        height: 160px;
+        border-radius: 10px;
+    }
+    
+    .song-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin: 12px 0 8px;
+    }
+    
+    .liked-date {
+        font-size: 11px;
+        color: #999;
+        margin-top: 8px;
+    }
+    
+    .empty {
+        text-align: center;
+        color: #999;
+        padding: 60px 20px;
+        font-size: 16px;
+        background: #f8f9fa;
+        border-radius: 12px;
+    }
+    
+    .empty::before {
+        content: "💔";
+        font-size: 48px;
+        display: block;
+        margin-bottom: 15px;
+    }
+</style>
 </head>
-<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<body>
 <div class="profile-header">
-    <h2 style="color: white;">❤️ Liked Songs</h2>
+    <h2>❤️ Liked Songs</h2>
     <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
 </div>
 <div class="liked-container">
@@ -15,9 +142,9 @@
     <div class="song-grid">
         {% for song in songs %}
         <div class="song-card">
-            <iframe src="https://www.youtube.com/embed/{{ song.id }}" frameborder="0" allowfullscreen style="width:100%; height:150px; border-radius:10px;"></iframe>
+            <iframe src="https://www.youtube.com/embed/{{ song.id }}" frameborder="0" allowfullscreen></iframe>
             <div class="song-title">{{ song.title[:50] }}</div>
-            <div class="liked-date" style="font-size:11px; color:#999; margin-top:5px;">❤️ Liked on {{ song.liked_at[:16] }}</div>
+            <div class="liked-date">❤️ Liked on {{ song.liked_at[:16] }}</div>
         </div>
         {% endfor %}
     </div>
