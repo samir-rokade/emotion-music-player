@@ -7,7 +7,7 @@ import json
 app = Flask(__name__)
 app.secret_key = "your-secret-key-here-change-in-production"
 
-API_KEY = "AIzaSyD3FGvLYs3Fzs7yz4vRhjrNMat7m-oT_cg"
+API_KEY = "AIzaSyAs1HFxpkDxaA-TQESq8Y1IK5_PEfg3YSQ"
 
 # Database setup
 def init_db():
