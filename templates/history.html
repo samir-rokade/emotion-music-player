@@ -3,10 +3,147 @@
 <head>
 <title>Search History - Emotion Music Player</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    /* Additional styles for history page */
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh;
+    }
+    
+    body::before, body::after, .music-pattern, .floating-emojis {
+        display: none !important;
+    }
+    
+    .profile-header {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .profile-header h2 {
+        color: white !important;
+        margin: 0;
+        font-size: 1.8rem;
+    }
+    
+    .back-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        padding: 10px 24px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .back-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }
+    
+    .history-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .history-container h3 {
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #667eea;
+        display: inline-block;
+    }
+    
+    .history-item {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        margin: 12px 0;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+        border-left: 4px solid #667eea;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .history-item:hover {
+        transform: translateX(5px);
+        background: #e8eaf6;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .query {
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .query::before {
+        content: "🔍";
+        font-size: 18px;
+    }
+    
+    .time {
+        color: #666;
+        font-size: 12px;
+        background: #e9ecef;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+    
+    .empty {
+        text-align: center;
+        color: #999;
+        padding: 60px 20px;
+        font-size: 16px;
+        background: #f8f9fa;
+        border-radius: 12px;
+    }
+    
+    .empty::before {
+        content: "📭";
+        font-size: 48px;
+        display: block;
+        margin-bottom: 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .history-container {
+            margin: 20px;
+            padding: 20px;
+        }
+        
+        .history-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .time {
+            align-self: flex-start;
+        }
+    }
+</style>
 </head>
-<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<body>
 <div class="profile-header">
-    <h2 style="color: white;">🎵 Search History</h2>
+    <h2>🎵 Search History</h2>
     <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
 </div>
 <div class="history-container">
@@ -14,7 +151,7 @@
     {% if history %}
         {% for item in history %}
         <div class="history-item">
-            <span class="query">🔍 {{ item.query }}</span>
+            <span class="query">{{ item.query }}</span>
             <span class="time">{{ item.time }}</span>
         </div>
         {% endfor %}
