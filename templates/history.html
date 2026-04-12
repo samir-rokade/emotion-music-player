@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search History - Emotion Music Player</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<div class="profile-header">
+    <h2 style="color: white;">🎵 Search History</h2>
+    <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
+</div>
+<div class="history-container">
+    <h3>Your Recent Searches</h3>
+    {% if history %}
+        {% for item in history %}
+        <div class="history-item">
+            <span class="query">🔍 {{ item.query }}</span>
+            <span class="time">{{ item.time }}</span>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">No search history yet. Start searching for music!</div>
+    {% endif %}
+</div>
+</body>
+</html>
