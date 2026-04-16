@@ -3,14 +3,96 @@
 <head>
 <title>About - Emotion Music Player</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh;
+    }
+    
+    body::before, body::after, .music-pattern, .floating-emojis {
+        display: none !important;
+    }
+    
+    .profile-header {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .profile-header h2 {
+        color: white !important;
+        margin: 0;
+    }
+    
+    .back-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        padding: 10px 24px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .back-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }
+    
+    .about-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .about-container h1 {
+        color: #667eea;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .about-container p {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .about-container h3 {
+        color: #333;
+        margin: 25px 0 15px;
+    }
+    
+    .feature-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .feature-list li {
+        padding: 12px;
+        margin: 10px 0;
+        background: #f8f9fa;
+        border-radius: 10px;
+        color: #555;
+        border-left: 3px solid #667eea;
+    }
+</style>
 </head>
-<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<body>
 <div class="profile-header">
-    <h2 style="color: white;">🎵 Emotion Music Player</h2>
+    <h2>🎵 About Emotion Music Player</h2>
     <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
 </div>
 <div class="about-container">
-    <h1 style="color:#667eea;">🎵 About Emotion Music Player</h1>
+    <h1>🎵 About Emotion Music Player</h1>
     <p>Discover music that matches your mood! Our intelligent recommendation system finds the perfect songs based on how you're feeling.</p>
     
     <h3>✨ Features:</h3>
@@ -22,6 +104,7 @@
         <li>🎨 Dynamic background based on mood</li>
         <li>📱 Responsive design for all devices</li>
         <li>📷 Camera mood detection</li>
+        <li>💾 Persistent login (stay logged in)</li>
     </ul>
     
     <h3>🎧 Moods Available:</h3>
