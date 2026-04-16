@@ -3,16 +3,105 @@
 <head>
 <title>My Profile - Emotion Music Player</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh;
+    }
+    
+    body::before, body::after, .music-pattern, .floating-emojis {
+        display: none !important;
+    }
+    
+    .profile-header {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .profile-header h2 {
+        color: white !important;
+        margin: 0;
+    }
+    
+    .back-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        padding: 10px 24px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .back-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }
+    
+    .profile-container-page {
+        max-width: 600px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .avatar {
+        font-size: 80px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .profile-container-page h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    
+    .profile-container-page p {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+    }
+    
+    .info-item {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .label {
+        font-weight: bold;
+        color: #666;
+        font-size: 14px;
+    }
+    
+    .value {
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+    }
+</style>
 </head>
-<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<body>
 <div class="profile-header">
-    <h2 style="color: white;">🎵 Emotion Music Player</h2>
+    <h2>🎵 My Profile</h2>
     <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
 </div>
 <div class="profile-container-page">
     <div class="avatar">👤</div>
-    <h2 style="text-align:center; color:#333;">{{ user.full_name }}</h2>
-    <p style="text-align:center; color:#666;">@{{ user.username }}</p>
+    <h2>{{ user.full_name }}</h2>
+    <p>@{{ user.username }}</p>
     <div class="info-item">
         <span class="label">Username:</span>
         <span class="value">{{ user.username }}</span>
