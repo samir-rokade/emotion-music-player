@@ -1,8 +1,7 @@
 /* ============================================
-   EMOTION MUSIC PLAYER - PREMIUM STYLESHEET
+   EMOTION MUSIC PLAYER - STABLE BACKGROUND
    ============================================ */
 
-/* Reset & Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +9,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
     text-align: center;
     color: white;
     margin: 0;
@@ -20,10 +19,9 @@ body {
 }
 
 /* ============================================
-   PROFESSIONAL MUSIC BACKGROUND
+   FIXED STABLE BACKGROUND IMAGE - NEVER CHANGES
    ============================================ */
 
-/* Main Background Overlay */
 body::before {
     content: '';
     position: fixed;
@@ -31,14 +29,20 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 8px);
+    /* CHANGE 'background.jpg' TO YOUR IMAGE FILENAME */
+    background-image: url('../static/background.jpg');
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     z-index: -2;
 }
 
-/* Dynamic Gradient Overlay */
+/* ============================================
+   FIXED DARK OVERLAY - STABLE, DOESN'T CHANGE
+   ============================================ */
+
 body::after {
     content: '';
     position: fixed;
@@ -46,43 +50,31 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3));
+    /* STABLE dark overlay - NO COLOR CHANGE */
+    background: rgba(0, 0, 0, 0.55);
     z-index: -1;
-    transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Music Note Pattern Background */
-.music-pattern {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='rgba(255,255,255,0.03)' d='M30,30 L35,25 L40,30 L35,35 Z'/%3E%3Ccircle cx='35' cy='32' r='2' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.5;
 }
 
 /* ============================================
-   MOOD-BASED GRADIENT OVERLAYS
+   MOOD BUTTONS - NO BACKGROUND COLOR CHANGE
    ============================================ */
 
-body.happy::after { background: linear-gradient(135deg, rgba(255,107,107,0.4), rgba(255,211,61,0.4)); }
-body.sad::after { background: linear-gradient(135deg, rgba(26,41,128,0.5), rgba(38,208,206,0.3)); }
-body.angry::after { background: linear-gradient(135deg, rgba(128,0,0,0.5), rgba(220,20,60,0.4)); }
-body.relaxed::after { background: linear-gradient(135deg, rgba(15,32,39,0.5), rgba(76,161,175,0.4)); }
-body.love::after { background: linear-gradient(135deg, rgba(255,8,68,0.4), rgba(255,177,153,0.4)); }
-body.sleep::after { background: linear-gradient(135deg, rgba(15,12,41,0.6), rgba(36,36,62,0.5)); }
-body.excited::after { background: linear-gradient(135deg, rgba(247,151,30,0.4), rgba(255,81,47,0.4)); }
-body.focus::after { background: linear-gradient(135deg, rgba(17,153,142,0.4), rgba(0,180,219,0.4)); }
-body.chill::after { background: linear-gradient(135deg, rgba(0,198,255,0.4), rgba(106,17,203,0.4)); }
-body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), rgba(248,80,76,0.4)); }
+/* Remove any mood-based background changes */
+body.happy::after, 
+body.sad::after, 
+body.angry::after, 
+body.relaxed::after, 
+body.love::after, 
+body.sleep::after, 
+body.excited::after, 
+body.focus::after, 
+body.chill::after, 
+body.workout::after {
+    background: rgba(0, 0, 0, 0.55); /* SAME FOR ALL MOODS - STABLE */
+}
 
 /* ============================================
-   FLOATING EMOJIS ANIMATION - ENHANCED WITH MORE EMOJIS
+   ENHANCED FLOATING EMOJIS - CLEAR & VISIBLE
    ============================================ */
 
 .floating-emojis {
@@ -98,82 +90,124 @@ body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), 
 
 .emoji {
     position: absolute;
-    font-size: 1.6rem;
-    opacity: 0.1;
+    font-size: 1.8rem;
+    opacity: 0.35;
     animation: floatEmoji 20s ease-in-out infinite;
-    filter: blur(0.5px);
-    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
 }
 
 @keyframes floatEmoji {
     0% {
-        transform: translateY(100vh) rotate(0deg) scale(0.5);
+        transform: translateY(100vh) rotate(0deg) scale(0.3);
         opacity: 0;
     }
-    15% {
-        opacity: 0.12;
+    10% {
+        opacity: 0.35;
     }
-    85% {
-        opacity: 0.12;
+    90% {
+        opacity: 0.35;
     }
     100% {
-        transform: translateY(-10vh) rotate(360deg) scale(1.2);
+        transform: translateY(-10vh) rotate(360deg) scale(1);
         opacity: 0;
     }
 }
 
-/* Music & Audio Emojis */
-.emoji:nth-child(1) { left: 2%; animation-duration: 22s; animation-delay: 0s; content: "🎵"; }
-.emoji:nth-child(2) { left: 7%; animation-duration: 28s; animation-delay: 2s; font-size: 2rem; content: "🎶"; }
-.emoji:nth-child(3) { left: 12%; animation-duration: 18s; animation-delay: 4s; content: "🎧"; }
-.emoji:nth-child(4) { left: 17%; animation-duration: 25s; animation-delay: 1s; font-size: 2.2rem; content: "🎼"; }
-.emoji:nth-child(5) { left: 22%; animation-duration: 30s; animation-delay: 6s; content: "🎹"; }
-.emoji:nth-child(6) { left: 27%; animation-duration: 20s; animation-delay: 3s; font-size: 1.8rem; content: "🎸"; }
-.emoji:nth-child(7) { left: 32%; animation-duration: 27s; animation-delay: 5s; font-size: 2.3rem; content: "🎷"; }
-.emoji:nth-child(8) { left: 37%; animation-duration: 23s; animation-delay: 7s; content: "🎺"; }
-.emoji:nth-child(9) { left: 42%; animation-duration: 32s; animation-delay: 2s; font-size: 1.9rem; content: "🎻"; }
-.emoji:nth-child(10) { left: 47%; animation-duration: 19s; animation-delay: 8s; content: "🥁"; }
-.emoji:nth-child(11) { left: 52%; animation-duration: 26s; animation-delay: 4s; font-size: 2.1rem; content: "🎤"; }
-.emoji:nth-child(12) { left: 57%; animation-duration: 24s; animation-delay: 1s; content: "🎙️"; }
-.emoji:nth-child(13) { left: 62%; animation-duration: 21s; animation-delay: 9s; font-size: 1.7rem; content: "🎚️"; }
-.emoji:nth-child(14) { left: 67%; animation-duration: 29s; animation-delay: 3s; content: "🎛️"; }
-.emoji:nth-child(15) { left: 72%; animation-duration: 17s; animation-delay: 6s; font-size: 2rem; content: "📀"; }
+/* Wave animation */
+@keyframes floatWave {
+    0% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.35;
+    }
+    80% {
+        opacity: 0.35;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
 
-/* Emotion & Mood Emojis */
-.emoji:nth-child(16) { left: 4%; animation-duration: 35s; animation-delay: 10s; font-size: 1.5rem; content: "😊"; }
-.emoji:nth-child(17) { left: 9%; animation-duration: 26s; animation-delay: 12s; content: "😢"; }
-.emoji:nth-child(18) { left: 14%; animation-duration: 31s; animation-delay: 8s; font-size: 1.9rem; content: "😡"; }
-.emoji:nth-child(19) { left: 19%; animation-duration: 22s; animation-delay: 14s; content: "😌"; }
-.emoji:nth-child(20) { left: 24%; animation-duration: 28s; animation-delay: 5s; font-size: 2rem; content: "😍"; }
-.emoji:nth-child(21) { left: 29%; animation-duration: 33s; animation-delay: 11s; content: "😴"; }
-.emoji:nth-child(22) { left: 34%; animation-duration: 24s; animation-delay: 7s; font-size: 1.8rem; content: "🤩"; }
-.emoji:nth-child(23) { left: 39%; animation-duration: 27s; animation-delay: 13s; content: "📚"; }
-.emoji:nth-child(24) { left: 44%; animation-duration: 30s; animation-delay: 2s; font-size: 2.1rem; content: "😎"; }
-.emoji:nth-child(25) { left: 49%; animation-duration: 21s; animation-delay: 9s; content: "💪"; }
+/* Sway animation */
+@keyframes floatSway {
+    0% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg);
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(70vh) translateX(-50px) rotate(90deg);
+        opacity: 0.35;
+    }
+    75% {
+        transform: translateY(30vh) translateX(50px) rotate(270deg);
+        opacity: 0.35;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(0px) rotate(360deg);
+        opacity: 0;
+    }
+}
 
-/* Special Music Symbols */
-.emoji:nth-child(26) { left: 54%; animation-duration: 34s; animation-delay: 1s; font-size: 1.7rem; content: "🎵"; }
-.emoji:nth-child(27) { left: 59%; animation-duration: 25s; animation-delay: 15s; content: "🎶"; }
-.emoji:nth-child(28) { left: 64%; animation-duration: 29s; animation-delay: 4s; font-size: 2.2rem; content: "🎧"; }
-.emoji:nth-child(29) { left: 69%; animation-duration: 36s; animation-delay: 12s; content: "🎼"; }
-.emoji:nth-child(30) { left: 74%; animation-duration: 23s; animation-delay: 6s; font-size: 1.6rem; content: "🎹"; }
-.emoji:nth-child(31) { left: 79%; animation-duration: 31s; animation-delay: 10s; content: "🎸"; }
-.emoji:nth-child(32) { left: 84%; animation-duration: 27s; animation-delay: 3s; font-size: 2rem; content: "🎷"; }
-.emoji:nth-child(33) { left: 89%; animation-duration: 20s; animation-delay: 14s; content: "🎺"; }
-.emoji:nth-child(34) { left: 94%; animation-duration: 32s; animation-delay: 7s; font-size: 1.8rem; content: "🎻"; }
-.emoji:nth-child(35) { left: 99%; animation-duration: 26s; animation-delay: 1s; content: "🥁"; }
+/* Music Notes & Emojis - Layer 1 (Large) */
+.emoji:nth-child(1) { left: 2%; animation: floatEmoji 18s ease-in-out infinite; animation-delay: 0s; font-size: 2rem; }
+.emoji:nth-child(2) { left: 6%; animation: floatWave 22s ease-in-out infinite; animation-delay: 1s; font-size: 1.5rem; }
+.emoji:nth-child(3) { left: 10%; animation: floatSway 20s ease-in-out infinite; animation-delay: 2s; font-size: 2.2rem; }
+.emoji:nth-child(4) { left: 14%; animation: floatEmoji 25s ease-in-out infinite; animation-delay: 0.5s; font-size: 1.8rem; }
+.emoji:nth-child(5) { left: 18%; animation: floatWave 19s ease-in-out infinite; animation-delay: 3s; font-size: 2rem; }
+.emoji:nth-child(6) { left: 22%; animation: floatSway 24s ease-in-out infinite; animation-delay: 1.5s; font-size: 1.6rem; }
+.emoji:nth-child(7) { left: 26%; animation: floatEmoji 21s ease-in-out infinite; animation-delay: 4s; font-size: 2.3rem; }
+.emoji:nth-child(8) { left: 30%; animation: floatWave 23s ease-in-out infinite; animation-delay: 2.5s; font-size: 1.7rem; }
+.emoji:nth-child(9) { left: 34%; animation: floatSway 26s ease-in-out infinite; animation-delay: 0.8s; font-size: 2.1rem; }
+.emoji:nth-child(10) { left: 38%; animation: floatEmoji 17s ease-in-out infinite; animation-delay: 5s; font-size: 1.9rem; }
+.emoji:nth-child(11) { left: 42%; animation: floatWave 28s ease-in-out infinite; animation-delay: 3.5s; font-size: 2.4rem; }
+.emoji:nth-child(12) { left: 46%; animation: floatSway 20s ease-in-out infinite; animation-delay: 1.2s; font-size: 1.5rem; }
+.emoji:nth-child(13) { left: 50%; animation: floatEmoji 24s ease-in-out infinite; animation-delay: 4.5s; font-size: 2.2rem; }
+.emoji:nth-child(14) { left: 54%; animation: floatWave 21s ease-in-out infinite; animation-delay: 2.8s; font-size: 1.8rem; }
+.emoji:nth-child(15) { left: 58%; animation: floatSway 27s ease-in-out infinite; animation-delay: 0.3s; font-size: 2rem; }
+.emoji:nth-child(16) { left: 62%; animation: floatEmoji 19s ease-in-out infinite; animation-delay: 5.5s; font-size: 1.6rem; }
+.emoji:nth-child(17) { left: 66%; animation: floatWave 25s ease-in-out infinite; animation-delay: 1.8s; font-size: 2.3rem; }
+.emoji:nth-child(18) { left: 70%; animation: floatSway 22s ease-in-out infinite; animation-delay: 4.2s; font-size: 1.9rem; }
+.emoji:nth-child(19) { left: 74%; animation: floatEmoji 29s ease-in-out infinite; animation-delay: 2.2s; font-size: 2.1rem; }
+.emoji:nth-child(20) { left: 78%; animation: floatWave 18s ease-in-out infinite; animation-delay: 3.8s; font-size: 1.7rem; }
+.emoji:nth-child(21) { left: 82%; animation: floatSway 23s ease-in-out infinite; animation-delay: 0.7s; font-size: 2.2rem; }
+.emoji:nth-child(22) { left: 86%; animation: floatEmoji 26s ease-in-out infinite; animation-delay: 4.8s; font-size: 1.5rem; }
+.emoji:nth-child(23) { left: 90%; animation: floatWave 20s ease-in-out infinite; animation-delay: 1.5s; font-size: 2rem; }
+.emoji:nth-child(24) { left: 94%; animation: floatSway 24s ease-in-out infinite; animation-delay: 3.2s; font-size: 1.8rem; }
+.emoji:nth-child(25) { left: 98%; animation: floatEmoji 22s ease-in-out infinite; animation-delay: 2s; font-size: 2.3rem; }
 
-/* Additional floating emojis for density */
-.emoji:nth-child(36) { left: 3%; animation-duration: 38s; animation-delay: 16s; font-size: 1.4rem; content: "🎤"; }
-.emoji:nth-child(37) { left: 18%; animation-duration: 29s; animation-delay: 18s; content: "🎙️"; }
-.emoji:nth-child(38) { left: 33%; animation-duration: 34s; animation-delay: 11s; font-size: 1.9rem; content: "🎚️"; }
-.emoji:nth-child(39) { left: 48%; animation-duration: 22s; animation-delay: 17s; content: "🎛️"; }
-.emoji:nth-child(40) { left: 63%; animation-duration: 30s; animation-delay: 13s; font-size: 2rem; content: "📀"; }
-.emoji:nth-child(41) { left: 78%; animation-duration: 35s; animation-delay: 8s; content: "💿"; }
-.emoji:nth-child(42) { left: 88%; animation-duration: 24s; animation-delay: 19s; font-size: 1.7rem; content: "📻"; }
-.emoji:nth-child(43) { left: 96%; animation-duration: 28s; animation-delay: 5s; content: "🔊"; }
-.emoji:nth-child(44) { left: 11%; animation-duration: 33s; animation-delay: 15s; font-size: 1.5rem; content: "🔉"; }
-.emoji:nth-child(45) { left: 41%; animation-duration: 37s; animation-delay: 20s; content: "🔈"; }
+/* Layer 2 - Medium emojis */
+.emoji:nth-child(26) { left: 4%; animation: floatWave 30s ease-in-out infinite; animation-delay: 6s; font-size: 1.4rem; }
+.emoji:nth-child(27) { left: 12%; animation: floatSway 28s ease-in-out infinite; animation-delay: 7s; font-size: 1.9rem; }
+.emoji:nth-child(28) { left: 20%; animation: floatEmoji 32s ease-in-out infinite; animation-delay: 5s; font-size: 1.6rem; }
+.emoji:nth-child(29) { left: 28%; animation: floatWave 26s ease-in-out infinite; animation-delay: 8s; font-size: 2.1rem; }
+.emoji:nth-child(30) { left: 36%; animation: floatSway 29s ease-in-out infinite; animation-delay: 6.5s; font-size: 1.7rem; }
+.emoji:nth-child(31) { left: 44%; animation: floatEmoji 27s ease-in-out infinite; animation-delay: 7.5s; font-size: 2rem; }
+.emoji:nth-child(32) { left: 52%; animation: floatWave 31s ease-in-out infinite; animation-delay: 5.5s; font-size: 1.5rem; }
+.emoji:nth-child(33) { left: 60%; animation: floatSway 25s ease-in-out infinite; animation-delay: 8.5s; font-size: 2.2rem; }
+.emoji:nth-child(34) { left: 68%; animation: floatEmoji 33s ease-in-out infinite; animation-delay: 6.2s; font-size: 1.8rem; }
+.emoji:nth-child(35) { left: 76%; animation: floatWave 28s ease-in-out infinite; animation-delay: 7.8s; font-size: 2.1rem; }
+.emoji:nth-child(36) { left: 84%; animation: floatSway 30s ease-in-out infinite; animation-delay: 5.8s; font-size: 1.6rem; }
+.emoji:nth-child(37) { left: 92%; animation: floatEmoji 26s ease-in-out infinite; animation-delay: 8.2s; font-size: 1.9rem; }
+
+/* Layer 3 - Small, fast emojis */
+.emoji:nth-child(38) { left: 7%; animation: floatWave 15s ease-in-out infinite; animation-delay: 10s; font-size: 1.2rem; }
+.emoji:nth-child(39) { left: 17%; animation: floatSway 16s ease-in-out infinite; animation-delay: 11s; font-size: 1.3rem; }
+.emoji:nth-child(40) { left: 27%; animation: floatEmoji 14s ease-in-out infinite; animation-delay: 9s; font-size: 1.1rem; }
+.emoji:nth-child(41) { left: 37%; animation: floatWave 17s ease-in-out infinite; animation-delay: 12s; font-size: 1.4rem; }
+.emoji:nth-child(42) { left: 47%; animation: floatSway 15s ease-in-out infinite; animation-delay: 10.5s; font-size: 1.2rem; }
+.emoji:nth-child(43) { left: 57%; animation: floatEmoji 16s ease-in-out infinite; animation-delay: 11.5s; font-size: 1.3rem; }
+.emoji:nth-child(44) { left: 67%; animation: floatWave 14s ease-in-out infinite; animation-delay: 9.5s; font-size: 1.1rem; }
+.emoji:nth-child(45) { left: 77%; animation: floatSway 17s ease-in-out infinite; animation-delay: 12.5s; font-size: 1.4rem; }
+.emoji:nth-child(46) { left: 87%; animation: floatEmoji 15s ease-in-out infinite; animation-delay: 10.8s; font-size: 1.2rem; }
+.emoji:nth-child(47) { left: 97%; animation: floatWave 16s ease-in-out infinite; animation-delay: 11.2s; font-size: 1.3rem; }
+.emoji:nth-child(48) { left: 3%; animation: floatSway 19s ease-in-out infinite; animation-delay: 13s; font-size: 1.5rem; }
+.emoji:nth-child(49) { left: 33%; animation: floatEmoji 21s ease-in-out infinite; animation-delay: 14s; font-size: 1.7rem; }
+.emoji:nth-child(50) { left: 63%; animation: floatWave 18s ease-in-out infinite; animation-delay: 13.5s; font-size: 1.6rem; }
+.emoji:nth-child(51) { left: 93%; animation: floatSway 20s ease-in-out infinite; animation-delay: 14.5s; font-size: 1.4rem; }
 
 /* ============================================
    HEADER & NAVIGATION
@@ -184,14 +218,13 @@ body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), 
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     position: relative;
     z-index: 100;
 }
 
-/* Centered Search Bar */
 .search-wrapper {
     display: flex;
     gap: 12px;
@@ -237,7 +270,6 @@ body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), 
     box-shadow: 0 8px 25px rgba(102,126,234,0.4);
 }
 
-/* Menu Container */
 .menu-container {
     position: relative;
     z-index: 1000;
@@ -264,7 +296,6 @@ body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), 
     transform: scale(1.05);
 }
 
-/* Dropdown Menus */
 .dropdown {
     display: none;
     position: absolute;
@@ -311,7 +342,6 @@ body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), 
     transform: translateX(5px);
 }
 
-/* Navigation Buttons */
 .nav-buttons {
     display: flex;
     gap: 12px;
@@ -335,7 +365,6 @@ body.workout::after { background: linear-gradient(135deg, rgba(255,65,108,0.4), 
     transform: translateY(-2px);
 }
 
-/* Profile Container */
 .profile-container {
     position: relative;
 }
@@ -409,10 +438,6 @@ h2 {
     font-weight: 600;
 }
 
-/* ============================================
-   MOOD BUTTONS
-   ============================================ */
-
 .mood-container {
     display: flex;
     flex-wrap: wrap;
@@ -428,7 +453,7 @@ h2 {
     padding: 10px 22px;
     border-radius: 40px;
     border: none;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.2);
     backdrop-filter: blur(10px);
     color: white;
     cursor: pointer;
@@ -441,7 +466,7 @@ h2 {
 
 .mood-btn:hover {
     transform: translateY(-2px);
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.3);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
@@ -450,10 +475,6 @@ h2 {
     box-shadow: 0 5px 20px rgba(102,126,234,0.4);
     transform: scale(1.05);
 }
-
-/* ============================================
-   PLAY BUTTON
-   ============================================ */
 
 .play-btn {
     padding: 14px 42px;
@@ -473,10 +494,6 @@ h2 {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(245,87,108,0.4);
 }
-
-/* ============================================
-   MUSIC CARDS
-   ============================================ */
 
 .cards {
     display: flex;
@@ -527,7 +544,6 @@ h2 {
     font-weight: 600;
 }
 
-/* Like Button */
 .like-btn {
     background: linear-gradient(135deg, #ff6b6b, #ee5a24);
     color: white;
@@ -546,10 +562,7 @@ h2 {
     box-shadow: 0 3px 10px rgba(238,90,36,0.4);
 }
 
-/* ============================================
-   CAMERA MODAL - MINIMIZED
-   ============================================ */
-
+/* Camera Modal */
 .modal {
     display: none;
     position: fixed;
@@ -645,15 +658,6 @@ h2 {
     text-align: center;
 }
 
-.mood-result h3 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
-
-/* ============================================
-   LOADING STATES
-   ============================================ */
-
 .loading {
     text-align: center;
     padding: 50px;
@@ -672,10 +676,7 @@ h2 {
     60%, 100% { content: '...'; }
 }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-
+/* Responsive Design */
 @media (max-width: 768px) {
     .header {
         padding: 12px 15px;
@@ -722,166 +723,6 @@ h2 {
     }
     
     .emoji {
-        opacity: 0.06;
+        opacity: 0.25;
     }
-}
-
-/* ============================================
-   LOGIN & REGISTER PAGES STYLES
-   ============================================ */
-
-.auth-container {
-    background: rgba(255,255,255,0.95);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    width: 350px;
-    margin: 100px auto;
-}
-
-.auth-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.auth-container input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-.auth-container button {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.auth-container button:hover {
-    transform: translateY(-2px);
-}
-
-.error {
-    color: red;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.link {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.link a {
-    color: #667eea;
-    text-decoration: none;
-}
-
-/* ============================================
-   PROFILE & HISTORY PAGES STYLES
-   ============================================ */
-
-.profile-header, .history-header {
-    background: rgba(0,0,0,0.5);
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.back-btn {
-    background: rgba(255,255,255,0.2);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-}
-
-.profile-container-page, .history-container, .recent-container, .liked-container, .about-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background: rgba(255,255,255,0.95);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-.avatar {
-    font-size: 80px;
-    text-align: center;
-}
-
-.info-item {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-}
-
-.label {
-    font-weight: bold;
-    color: #666;
-}
-
-.value {
-    color: #333;
-}
-
-.history-item, .recent-item, .liked-item {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.song-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.song-card {
-    background: #f5f5f5;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-}
-
-.mood-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-top: 8px;
-}
-
-.empty {
-    text-align: center;
-    color: #999;
-    padding: 40px;
-}
-
-.feature-list {
-    list-style: none;
-    padding: 0;
-}
-
-.feature-list li {
-    padding: 10px;
-    margin: 10px 0;
-    background: #f5f5f5;
-    border-radius: 10px;
 }
