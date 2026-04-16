@@ -384,6 +384,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     loadMusic();
 });
+// Add this inside your existing script tag or at the bottom of the file
+document.addEventListener('DOMContentLoaded', function() {
+    // Set emoji content for floating emojis
+    const emojis = document.querySelectorAll('.emoji');
+    const emojiList = [
+        '🎵', '🎶', '🎧', '🎼', '🎹', '🎸', '🎷', '🎺', '🎻', '🥁',
+        '🎤', '🎙️', '🎚️', '🎛️', '📀', '💿', '📻', '🔊', '🔉', '🔈',
+        '🎵', '🎶', '🎧', '🎼', '🎹', '🎸', '🎷', '🎺', '🎻', '🥁',
+        '😊', '😢', '😡', '😌', '😍', '😴', '🤩', '📚', '😎', '💪',
+        '❤️', '💜', '💙', '💚', '💛', '🧡', '✨', '⭐', '🌟', '💫',
+        '🎵', '🎶', '🎧', '🎼', '🎹', '🎸', '🎷', '🎺', '🎻', '🥁', '🎤'
+    ];
+    
+    emojis.forEach((emoji, index) => {
+        if (emojiList[index % emojiList.length]) {
+            emoji.textContent = emojiList[index % emojiList.length];
+        }
+    });
+});
 </script>
+
 </body>
 </html>
